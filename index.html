@@ -1,4 +1,4 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html>
 <head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
@@ -7,59 +7,33 @@
     <script type="text/javascript" src="firecode.js"></script>
     <style type="text/css">
         body {text-align: center; margin: 0; padding: 0; overflow: hidden; background: #DDDDDD;}
-        textarea {margin: 64px auto 0 auto; width: 640px; height: 380px;}
+        textarea {margin: 64px auto 0 auto; width: 800px; height: 420px;}
     </style>
 </head>
 <body onload="FireCode.attach('code').getFacade().focus();">
-<textarea id="code">
-    
-    // Class inheritance
-    FireCode.Class.extend = function(props)
-    {
-        var newClass = function()
-        {
-            this.init && this.init.apply(this, arguments);
-        };
-        
-        if (Object.create)
-        {
-            newClass.prototype = Object.create(this.prototype);
-        }
-        else
-        {
-            var F = function() {};
-            F.prototype = this.prototype;
-            newClass.prototype = new F;
-        }
-        
-        newClass.extend = FireCode.Class.extend;
-        
-        for (var name in props)
-            if (typeof props[name] == "function")
-                newClass.prototype[name] = props[name];
-        
-        return newClass;
-    };
+<textarea id="code">Hi,
 
-    attachHandlers: function()
-    {
-        var self = this;
-        
-        this._offset.addEventListener('DOMMouseScroll', function(e) {return self.handleMouseWheel(e);}, false);
-        this._offset.addEventListener('mousewheel', function(e) {return self.handleMouseWheel(e);}, false);
+You are looking at the FireCode, a web-based editor written in ECMA JavaScript.
 
-        this._offset.addEventListener('mousedown', function(e) {return self.handleMouseEvent(e);}, false);
-        this._window.addEventListener('mouseup', function(e) {return self.handleMouseEvent(e);}, false);
-        this._window.addEventListener('mousemove', function(e) {return self.handleMouseEvent(e);}, false);
-        
-        this._scrollV.addEventListener('scroll', function(e) {return self.handleScroll(e);}, false);
-        this._scrollH.addEventListener('scroll', function(e) {return self.handleScroll(e);}, false);
-        
-        this._facade.addEventListener('keydown', function(e) {return self.handleKeyPress(e);}, false);
-        
-        this._facade.addEventListener('focus', function(e) {return self.handleFocus(e);}, false);
-        this._facade.addEventListener('blur', function(e) {return self.handleBlur(e);}, false);
-    },
+FireCode has the following features:
+
+- Has no other dependencied except ECMA JavaScript
+- Has clean, object-oriented code, well-thought API
+- Entire codebase fits into 8Kb minified and gzipped
+- Works in all major browsers: FF, Chrome, Opera, IE
+- Optimized for speed and can load very large files
+- Supports multiple cursors (test with ctrl + click)
+- Press Ctrl + D to duplicate line
+- Press Ctrl + A to select entire text
+
+--
+
+Sergey Morkovkin
+
+Email: sergeymorkovkin@gmail.com
+Skype: sergeymorkovkin
+Phone: +38 (050) 445-0145
+Website: http://morkovkin.info
 </textarea>
 </body>
 </html>
