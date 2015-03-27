@@ -5,6 +5,9 @@
 + Bug with cursor inside selection
 + Big selection rendering bug
 
+
+- Ошибка с gutter - нумерует пустые строки
+- Ошибка с blank + backspace + type
 - ctrl + стрелки не проскакивает пробелы
 - Сделать ctrl + backspace
 - Сделать smart indent
