@@ -26,19 +26,19 @@
 
 .firecode .cursor pre
 {
-    -webkit-transition: opacity 100ms ease;
-    -moz-transition: opacity 100ms ease;
-    -ms-transition: opacity 100ms ease;
-    -o-transition: opacity 100ms ease;
-    transition: opacity 100ms ease;
+    -webkit-transition: opacity 200ms ease;
+    -moz-transition: opacity 200ms ease;
+    -ms-transition: opacity 200ms ease;
+    -o-transition: opacity 200ms ease;
+    transition: opacity 200ms ease;
 }
 
-/*.firecode .cursor pre div,
+.firecode .cursor pre div,
 .firecode .backer pre div
 {
-    -webkit-transition: left 100ms ease, top 100ms ease;
-    -moz-transition: left 100ms ease, top 100ms ease;
-    -ms-transition: left 100ms ease, top 100ms ease;
-    -o-transition: left 100ms ease, top 100ms ease;
-    transition: left 100ms ease, top 100ms ease;
-}*/
+    /*-webkit-transition: left 200ms ease, top 200ms ease;
+    -moz-transition: left 200ms ease, top 200ms ease;
+    -ms-transition: left 200ms ease, top 200ms ease;
+    -o-transition: left 200ms ease, top 200ms ease;
+    transition: left 200ms ease, top 200ms ease;*/
+}

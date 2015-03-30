@@ -1,6 +1,4 @@
 
-- ctrl + стрелки не проскакивает пробелы
-- Сделать ctrl + backspace
 - Сделать smart indent
 - Indent/unindent блока
 - Fix double-enter in IE
@@ -9,45 +7,8 @@
 
 ===================================================================================================
 
-+ Use base64-encoded inline images
-+ Display gutter with line numbers
-+ Gutter should float on h-scrolling
-+ Deselect when clicking on gutter
-+ Per-line text blocks organization
-+ Highlight currently edited line
-+ Emulate cursor with inline block
-+ Blink cursor
-+ Hide cursor on blur
-+ Show cursor on focus
-+ Should follow selection
-+ Move cursor with Up/Down/PgUp/PgDown
-+ Select all text with Ctrl + A
-+ Duplicating line with Ctrl + D
-+ Remove line with Ctrl + Y
-+ Move cursor with Ctrl + Left/Right
-+ Move cursor with Home / End
-+ Selection with Ctrl + Shift + Left/Right
-+ Remove content with Ctrl + Backspace
-+ Selection indent with [selection] + Tab
-+ Selection unindent [selection] + Shift + Tab
-+ Scroll to cursor with Ctrl + Shift + Left/Right
-+ Viewport scrolling with Ctrl + Up/Down
-+ Snap cursor to grid on tabulation (4x spaces)
-+ Persist line indentation on pressing Enter
-+ Persist cursor position on pressing Up/Down
-+ Scroll on Backspace/Enter at the end of file
-
-+ Detect line height automatically
-+ Update gutter line numbers
-+ Implement multiline range support
-+ Highlight line with cursor
-- Editor focus management
-- Click to set cursor
-- Mouse selection
-- Smooth blinking cursor
-- Use 0-indices for lines and positions
-
 - Options
+    - Animate cursor movements while typing
     - Bound/unbound cursor (and freespace typing)
     - Bound/unbound selection rendering
     - Hide or fade caret on lose focus
@@ -61,8 +22,6 @@
     - Visible frame paddings (auto-scroll)
 
 - Single file for the whole editor
-- Use DIV instead of an IFRAME
-- Refactor code to use prototypes
 
 - Gutter highlight
 - Prevent line numbers selection
@@ -121,19 +80,55 @@
 
 - loadCode, saveCode() - ctrl + S
 - Implement Cut/Copy/Paste
-
 - Запечатать CSS в JS-файл
 - Minify and compress with GCC
 - Fix GCC errors and warnings
 - Complete test coverage, QUnit
-
 - Отдельный класс Cursor/SelectionRange
-
 - Запечатать CSS в firecode.js
 - Дублирование курсоров ctrl + alt + up/down
 
-
 ===================================================================================================
+
++ Use DIV instead of an IFRAME
++ Refactor code to use prototypes
++ Use base64-encoded inline images
++ Display gutter with line numbers
++ Gutter should float on h-scrolling
++ Deselect when clicking on gutter
++ Per-line text blocks organization
++ Highlight currently edited line
++ Emulate cursor with inline block
++ Blink cursor
++ Hide cursor on blur
++ Show cursor on focus
++ Should follow selection
++ Move cursor with Up/Down/PgUp/PgDown
++ Select all text with Ctrl + A
++ Duplicating line with Ctrl + D
++ Remove line with Ctrl + Y
++ Move cursor with Ctrl + Left/Right
++ Move cursor with Home / End
++ Selection with Ctrl + Shift + Left/Right
++ Remove content with Ctrl + Backspace
++ Selection indent with [selection] + Tab
++ Selection unindent [selection] + Shift + Tab
++ Scroll to cursor with Ctrl + Shift + Left/Right
++ Viewport scrolling with Ctrl + Up/Down
++ Snap cursor to grid on tabulation (4x spaces)
++ Persist line indentation on pressing Enter
++ Persist cursor position on pressing Up/Down
++ Scroll on Backspace/Enter at the end of file
+
++ Detect line height automatically
++ Update gutter line numbers
++ Implement multiline range support
++ Highlight line with cursor
++ Editor focus management
++ Click to set cursor
++ Mouse selection
++ Smooth blinking cursor
++ Use 0-indices for lines and positions
 
 + Метод pingCaret, hideCaret
 + Методы для работы с текстом
@@ -314,3 +309,5 @@
 + Big selection rendering bug
 + Ошибка с blank + backspace + type
 + Ошибка с gutter - нумерует пустые строки
++ Ctrl + стрелки не проскакивает пробелы
++ Сделать ctrl + backspace

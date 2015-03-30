@@ -314,6 +314,7 @@
             this._smartHome = true;
             this._smartEnter = true;
             this._enumLines = 'auto'; // true, false, 'auto'
+            this._animation = true;
         },
 
         getFacade: function() {return this._facade;},
@@ -1065,9 +1066,8 @@
                 this.updateEditor(true, true);
                 return e.preventDefault() && false;
             }
-            else
-                return true;
 
+            return true;
         },
 
         handleFocus: function(e)
@@ -1625,14 +1625,24 @@
 
                 if (shift < 0)
                 {
-                    if (position <= 0 && line > 0) {line--; position = this.getLineLength(line);}
-                    else while (position > 0 && this._wordSeparators.indexOf(lineText.substr(--position - 1, 1)) === -1);
+                    if (position == 0 && line > 0) {line--; position = this.getLineLength(line);}
+                    else
+                    {
+                        textChunk = lineText.substr(0, position);
+                        replChulk = textChunk.match(/([\w]*|[^\w\s]*)\s*$/);
+                        position -= replChulk[0].length;
+                    }
                 }
 
                 if (shift > 0)
                 {
-                    if (position >= this.getLineLength(line) && line < this.getLinesCount() - 1) {line++; position = 0;}
-                    else while (position < maxPosition && this._wordSeparators.indexOf(lineText.substr(++position, 1)) === -1);
+                    if (position == this.getLineLength(line) && line < this.getLinesCount() - 1) {line++; position = 0;}
+                    else
+                    {
+                        textChunk = lineText.substr(position);
+                        replChulk = textChunk.match(/^([^\w\s]+|[\w]*)\s*/);
+                        position += replChulk[0].length;
+                    }
                 }
             }
 
