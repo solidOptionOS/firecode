@@ -855,39 +855,61 @@
                 // Remember selection
                 this._dragSelection = this._selection.slice(0);
 
-                // Click on gutter or triple click
-                if (e.target.parentNode === this._gutter || this._tripleClick &&
-                    timestamp - this._tripleClick.timestamp <= this._doubleClickTime &&
-                    this._tripleClick.x == e.clientX && this._tripleClick.y == e.clientY)
-                {
-                    this._lineRange = this.createLineSelectionRange(point.line);
-                    this._tripleClick = null;
-                    this.addSelectionRange(this._lineRange, !e.ctrlKey);
-                }
-
-                // Double-click select word
-                else if (this._doubleClick &&
+                // Double click
+                var doubleClick = this._doubleClick &&
                     timestamp - this._doubleClick.timestamp <= this._doubleClickTime &&
-                    this._doubleClick.x == e.clientX && this._doubleClick.y == e.clientY)
-                {
-                    // Select word on double click
-                    this._wordRange = this.createWordSelectionRange(point.line, point.position);
-                    this._tripleClick = {timestamp: timestamp, x: e.clientX, y: e.clientY};
-                    this._doubleClick = null;
-                    this.addSelectionRange(this._wordRange, !e.ctrlKey);
-                }
+                    this._doubleClick.x == e.clientX && this._doubleClick.y == e.clientY;
 
-                else
+                var tripleClick = this._tripleClick &&
+                    timestamp - this._tripleClick.timestamp <= this._doubleClickTime &&
+                    this._tripleClick.x == e.clientX && this._tripleClick.y == e.clientY;
+
+                // Single click
+                if (!doubleClick && !tripleClick)
                 {
                     this._doubleClick = {timestamp: timestamp, x: e.clientX, y: e.clientY};
 
+                    // Click on gutter
+                    if (e.target.parentNode === this._gutter)
+                        this.addSelectionRange(point.line, 0, point.line, 0, !e.ctrlKey);
+
                     // Shift-click selection from cursor to new click position
-                    if (e.shiftKey)
+                    else if (e.shiftKey)
                         range.expandBy(point);
 
                     // Reset selection if no control is held
                     else
                         this.addSelectionRange(point.line, point.position, point.line, point.position, !e.ctrlKey);
+                }
+
+                // Double-click select word
+                else if (doubleClick)
+                {
+                    // Click on gutter
+                    if (e.target.parentNode === this._gutter)
+                    {
+                        this._lineRange = this.createLineSelectionRange(point.line);
+                        this.addSelectionRange(this._lineRange, !e.ctrlKey);
+                    }
+
+                    // Select word on double click
+                    else
+                    {
+                        this._tripleClick = {timestamp: timestamp, x: e.clientX, y: e.clientY};
+                        this._doubleClick = null;
+
+                        this._wordRange = this.createWordSelectionRange(point.line, point.position);
+                        this.addSelectionRange(this._wordRange, !e.ctrlKey);
+                    }
+                }
+
+                // Triple click select line
+                else if (tripleClick)
+                {
+                    this._tripleClick = null;
+
+                    this._lineRange = this.createLineSelectionRange(point.line);
+                    this.addSelectionRange(this._lineRange, !e.ctrlKey);
                 }
 
                 this.normalizeSelection();
@@ -1244,8 +1266,6 @@
                 startPosition = null,
                 endLine = line,
                 endPosition = null;
-
-            console.log(line, position);
 
             var halfWord = text.substr(position).match(/^(\s+|[^\w\s]+|\w+)/);
                 halfWord = halfWord ? halfWord[0] : '';
