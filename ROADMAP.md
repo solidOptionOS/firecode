@@ -1,7 +1,9 @@
 
++ Поправить выделение слов кликом
+- Fix double-enter in IE
+
 - Сделать smart indent
 - Indent/unindent блока
-- Fix double-enter in IE
 - Подсветка синтаксиса
 - Метод замены replace()
 
@@ -20,6 +22,7 @@
     - Whether to allow scroll down to space
     - Smooth or per-line scrolling
     - Visible frame paddings (auto-scroll)
+    - Cursor position in word-click selections
 
 - Single file for the whole editor
 

@@ -1245,42 +1245,23 @@
                 endLine = line,
                 endPosition = null;
 
-            var getCharSequence = function(text, position)
+            console.log(line, position);
+
+            var halfWord = text.substr(position).match(/^(\s+|[^\w\s]+|\w+)/);
+                halfWord = halfWord ? halfWord[0] : '';
+
+            var fullWord = text.substr(0, position + halfWord.length).match(/([^\w\s]+|\w+|\s+)$/);
+                fullWord = fullWord ? fullWord[0] : '';
+
+            if (halfWord.length > fullWord.length - halfWord.length/* && fullWord.length > 1*/)
             {
-                return (position > 0 ? (chars.indexOf(text.substr(position - 1, 1)) != -1 ? '#' : 'A') : '?') +
-                       (position < text.length ? (chars.indexOf(text.substr(position, 1)) != -1 ? '#' : 'A') : '?');
+                startPosition = position + halfWord.length - fullWord.length;
+                endPosition = position + halfWord.length;
             }
-
-            var sequence = getCharSequence(text, position);
-
-            if (sequence === '##' && extend)
-                return new FireCode.SelectionRange(startLine, position, endLine, position);
-
-            var leftPosition = position,
-                rightPosition = position,
-                leftMatch = sequence.match(/^(##|#\?)$/) ? /^(##|A#)$/ : /^(##|#A)$/,
-                rightMatch = sequence.match(/^(##|\?#)$/) ? /^(##|#A)$/ : /^(##|A#)$/;
-
-            while (--leftPosition >= 0 && !leftMatch.test(getCharSequence(text, leftPosition)));
-            while (++rightPosition <= text.length && !rightMatch.test(getCharSequence(text, rightPosition)));
-
-            if (sequence === 'AA' || sequence === '##')
+            else
             {
-                var swap = position - leftPosition < rightPosition - position;
-                endPosition = swap ? rightPosition : leftPosition;
-                startPosition = swap ? leftPosition : rightPosition;
-            }
-
-            if (sequence === 'A#' || sequence === '#?')
-            {
-                startPosition = position;
-                endPosition = leftPosition;
-            }
-
-            if (sequence === '#A' || sequence === '?#')
-            {
-                startPosition = position;
-                endPosition = rightPosition;
+                startPosition = position + halfWord.length;
+                endPosition = position + halfWord.length - fullWord.length;
             }
 
             return new FireCode.SelectionRange(startLine, startPosition, endLine, endPosition);
@@ -1626,23 +1607,13 @@
                 if (shift < 0)
                 {
                     if (position == 0 && line > 0) {line--; position = this.getLineLength(line);}
-                    else
-                    {
-                        textChunk = lineText.substr(0, position);
-                        replChulk = textChunk.match(/([\w]*|[^\w\s]*)\s*$/);
-                        position -= replChulk[0].length;
-                    }
+                    else position -= lineText.substr(0, position).match(/([\w]*|[^\w\s]*)\s*$/)[0].length;
                 }
 
                 if (shift > 0)
                 {
                     if (position == this.getLineLength(line) && line < this.getLinesCount() - 1) {line++; position = 0;}
-                    else
-                    {
-                        textChunk = lineText.substr(position);
-                        replChulk = textChunk.match(/^([^\w\s]+|[\w]*)\s*/);
-                        position += replChulk[0].length;
-                    }
+                    else position += lineText.substr(position).match(/^([^\w\s]+|[\w]*)\s*/)[0].length;
                 }
             }
 
