@@ -1,13 +1,4 @@
 
-+ Fix cursor negative line positioning
-+ Reuse cursor/highlight nodes + animate
-+ Ctrl + home on empty line bug
-+ Bug with cursor inside selection
-+ Big selection rendering bug
-
-
-- Ошибка с gutter - нумерует пустые строки
-- Ошибка с blank + backspace + type
 - ctrl + стрелки не проскакивает пробелы
 - Сделать ctrl + backspace
 - Сделать smart indent
@@ -315,3 +306,11 @@
 + Ввод табуляции
 + Сделть ctrl + A
 + Сделть ctrl + D
+
++ Fix cursor negative line positioning
++ Reuse cursor/highlight nodes + animate
++ Ctrl + home on empty line bug
++ Bug with cursor inside selection
++ Big selection rendering bug
++ Ошибка с blank + backspace + type
++ Ошибка с gutter - нумерует пустые строки

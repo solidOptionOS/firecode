@@ -313,6 +313,7 @@
             this._selection = [];
             this._smartHome = true;
             this._smartEnter = true;
+            this._enumLines = 'auto'; // true, false, 'auto'
         },
 
         getFacade: function() {return this._facade;},
@@ -506,10 +507,12 @@
 
         updateEditor: function(enforce, complete)
         {
+            // Selfie?
+            var self = this;
+
             // Prevent multiple calls
             if (!enforce)
             {
-                var self = this;
                 var func = function() {self.updateEditor(true);};
                 clearTimeout(this._updateEditorTimeout);
                 this._updateEditorTimeout = setTimeout(func, 0);
@@ -528,6 +531,18 @@
                 var div = document.createElement('DIV');
                 if (text) div.innerHTML = text;
                 return div;
+            };
+
+            // Creates gutter node with text
+            var createLineNumber = function(line)
+            {
+                if (self._enumLines === 'auto')
+                    return line >= 0 && line < self.getLinesCount() ? line + 1 : '';
+
+                if (self._enumLines === true)
+                    return line + 1;
+
+                return '';
             };
 
             // Function for adding selection block
@@ -552,11 +567,6 @@
 
             // Render selection, line highlights and cursors
             var lines = [], ranges = this.getSelectionRanges();
-
-            // Clear highlights, selection and cursors
-            /*this._backer.innerHTML = '';
-            this._marker.innerHTML = '';
-            this._cursor.innerHTML = '';*/
 
             // Loop through selection ranges
             for (var i = 0; i < ranges.length; i++)
@@ -680,7 +690,7 @@
                 for (var i = frame.topLine; i <= frame.endLine; i++)
                 {
                     this._editor.insertBefore(createEditorNode(this.getTextAt(i)), null);
-                    this._gutter.insertBefore(createEditorNode(i + 1), null);
+                    this._gutter.insertBefore(createEditorNode(createLineNumber(i)), null);
                 }
             }
 
@@ -693,7 +703,7 @@
                     this._editor.removeChild(this._editor.firstChild);
                     this._editor.insertBefore(createEditorNode(this.getTextAt(this._frame.endLine + 1 + i)), null);
                     this._gutter.removeChild(this._gutter.firstChild);
-                    this._gutter.insertBefore(createEditorNode(this._frame.endLine + 1 + i + 1), null);
+                    this._gutter.insertBefore(createEditorNode(createLineNumber(this._frame.endLine + 1 + i)), null);
                 }
             }
 
@@ -706,7 +716,7 @@
                     this._editor.removeChild(this._editor.lastChild);
                     this._editor.insertBefore(createEditorNode(this.getTextAt(this._frame.topLine - 1 - i)), this._editor.firstChild);
                     this._gutter.removeChild(this._gutter.lastChild);
-                    this._gutter.insertBefore(createEditorNode(this._frame.topLine - 1 - i + 1), this._gutter.firstChild);
+                    this._gutter.insertBefore(createEditorNode(createLineNumber(this._frame.topLine - 1 - i)), this._gutter.firstChild);
                 }
             }
 
