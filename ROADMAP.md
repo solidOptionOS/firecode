@@ -1,16 +1,14 @@
 
-- Подсветка синтаксиса
-
-===================================================================================================
-
 - Options
+    - Cursor blinking interval
+    - Revert animation timeout
     - Animate cursor movements while typing
     - Bound/unbound cursor (and freespace typing)
     - Bound/unbound selection rendering
     - Hide or fade caret on lose focus
     - Expand editor height or scroll (min/max)
     - Horizontal scrolbar overlap gutter or not
-    - Show or hide gutter
+    - Show or hide gutter + runtime switch
     - Scrollbar hehavior: show / hide / auto
     - Number of prerendered hidden lines
     - Whether to allow scroll down to space
@@ -18,36 +16,37 @@
     - Visible frame paddings (auto-scroll)
     - Cursor position in word-click selections
 
-- Single file for the whole editor
+- [BIG] Clean editor API
+  - getLineNode(index)
+  - getLineText()
+  - getFocusNode()
+  - getAnchorNode()
+  - getSelection()
+  - getCursorPosition()
+- [BIG] Change history and Undo/Redo
+  - Persist cursor movements
+  - Group similar actions (option)
+- [BIG] Implement PHP/HTML/CSS/JS context
+  - Auto-closing brackets and quotes [], {}, (), "", ''
+  - Bypass typing closing brackets and quotes
+- [BIG] Autocomplete popup window
+- [BIG] Snippets with placeholders
++ [BIG] Selection on mouse dragging
+- [BIG] Code folding
+- [BIG] Big files support
+
+===================================================================================================
 
 - Method for text replace()
 - Gutter highlight
 - Prevent line numbers selection
 - Implement more cursor styles
-- Block cursor
-- Smooth blinking
++ Block cursor
++ Smooth blinking
 - Replace textarea element(s)
 - Replace any tag + load remote file
 - Automatic language detection
 - Create language plugin system
-
-- [BIG] Clean editor API
-- [BIG] Autocomplete popup window
-- [BIG] Snippets with placeholders
-+ [BIG] Selection on mouse dragging
-- [BIG] Change history and Undo/Redo
-  - Persist cursor movements
-  - Group similar actions (option)
-- getLineNode(index)
-- getLineText()
-- getFocusNode()
-- getAnchorNode()
-- getSelection()
-- getCursorPosition()
-- [BIG] Implement PHP syntax parser
-- Auto-closing brackets and quotes [], {}, (), "", ''
-- Bypass typing closing brackets and quotes
-- [BIG] Big files support
 
 - Function arguments tooltips
 - Function help with Ctrl + Click
@@ -61,14 +60,13 @@
 - Toggle snippets with Ctrl + J
 
 - Base class for plugins (e.g. function tooltips)
+- Single file for the whole editor (using Gulp)
+- Support multiple simultaneous editors
 
-- Code folding
-- Switch between line home / content start with Home
++ Switch between line home / content start with Home
 - Select line with double click on gutter
 - Select token with double click
 - Multiple cursors
-
-- Multiple simultaneous editors
 
 - Context menu
 - Modal windows
@@ -128,7 +126,7 @@
 + Smooth blinking cursor
 + Use 0-indices for lines and positions
 
-+ Метод pingCaret, hideCaret
++ Methods pingCaret, hideCaret
 + Методы для работы с текстом
 + Выставлять текст
 + Парсер файлов
