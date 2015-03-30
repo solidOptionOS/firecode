@@ -1034,6 +1034,9 @@
                     this.removeTextAt(range);
                 }
 
+                else if (key === '[tab]' && !range.isCollapsed())
+                    this.indentText(range, e.shiftKey ? -1 : +1);
+
                 else if (key === '[tab]')
                     this.insertTextAt(range, Array(this._tabSize + 1).join(' '));
 
@@ -1191,6 +1194,18 @@
 
             else if (line != undefined && position != undefined && length < 0)
                 return this._lines[line].substr(position + length, -length);
+        },
+
+        getLineText: function(line)
+        {
+            if (line != undefined && this._lines[line])
+                return this._lines[line];
+        },
+
+        setLineText: function(line, text)
+        {
+            if (line != undefined && text != undefined && this._lines[line])
+                return this._lines[line] = text;
         },
 
         getLineLength: function(line)
@@ -1561,6 +1576,39 @@
                 range.collapseTo(point);
             }
 
+        },
+
+        indentText: function(range, shift)
+        {
+            var topLine = Math.min(range.startLine, range.endLine);
+            var endLine = Math.max(range.startLine, range.endLine);
+            var reverted = range.startLine > range.endLine;
+
+            if (shift > 0)
+            {
+                var insert = new Array(shift * this._tabSize + 1).join(' ');
+                for (var line = topLine; line <= endLine; line++)
+                    this.setLineText(line, insert + this.getLineText(line));
+                range.startPosition += shift * this._tabSize;
+                range.endPosition += shift * this._tabSize;
+            }
+
+            if (shift < 0)
+            {
+                var regexp = new RegExp('^ {0,' + (-1 * shift * this._tabSize) + '}');
+                for (var line = topLine; line <= endLine; line++)
+                {
+                    var text = this.getLineText(line);
+                    var spacing = text.match(regexp);
+                        spacing = spacing ? spacing[0] : '';
+
+                    this.setLineText(line, text.substr(spacing.length));
+
+                    if (line === topLine) reverted ? range.endPosition -= spacing.length : range.startPosition -= spacing.length;
+                    if (line === endLine) reverted ? range.startPosition -= spacing.length : range.endPosition -= spacing.length;
+                }
+
+            }
         },
 
         moveCursor: function(range, line, position, extend)

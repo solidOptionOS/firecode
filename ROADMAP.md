@@ -1,8 +1,6 @@
 
 - Сделать smart indent
-- Indent/unindent блока
 - Подсветка синтаксиса
-- Метод замены replace()
 
 ===================================================================================================
 
@@ -23,6 +21,7 @@
 
 - Single file for the whole editor
 
+- Method for text replace()
 - Gutter highlight
 - Prevent line numbers selection
 - Implement more cursor styles
@@ -33,13 +32,13 @@
 - Automatic language detection
 - Create language plugin system
 
+- [BIG] Clean editor API
 - [BIG] Autocomplete popup window
 - [BIG] Snippets with placeholders
 - [BIG] Selection on mouse dragging
 - [BIG] Change history and Undo/Redo
-- Persist cursor movements
-- Group similar actions (option)
-- [BIG] Clean editor API
+  - Persist cursor movements
+  - Group similar actions (option)
 - getLineNode(index)
 - getLineText()
 - getFocusNode()
@@ -313,3 +312,4 @@
 + Сделать ctrl + backspace
 + Поправить выделение слов кликом
 + Одиночный клик по гаттеру
++ Indent/unindent блока
