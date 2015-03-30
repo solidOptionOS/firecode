@@ -483,22 +483,35 @@
 
         pingCursor: function()
         {
-            var self = this, blink = function(e)
+            var self = this;
+
+            // Function blinks cursor layer
+            //
+            var blink = function(e)
             {
                 var hidden = self._cursor.style.opacity == '0';
                 self._cursor.style.opacity = hidden ? '1' : '0';
             };
 
+            // Fixes animation after specified timeout
+            //
+            var fixer = function(e)
+            {
+                self._cursor.className = 'animated';
+                self._fixerTimeout = null;
+            }
+
             this._cursor.className = null;
             this._cursor.style.opacity = '1';
-            window.setTimeout(function() {
-                self._cursor.className = 'animated';
-            }, 200 /* should match animation speed */);
+
+            if (this._fixerTimeout)
+                clearTimeout(this._fixerTimeout);
 
             if (this._blinkInterval)
                 clearInterval(this._blinkInterval);
 
             this._blinkInterval = setInterval(blink, 500);
+            this._fixerTimeout = setTimeout(fixer, 200);
         },
 
         stopCursor: function()

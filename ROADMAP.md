@@ -1,5 +1,4 @@
 
-- Сделать smart indent
 - Подсветка синтаксиса
 
 ===================================================================================================
@@ -35,7 +34,7 @@
 - [BIG] Clean editor API
 - [BIG] Autocomplete popup window
 - [BIG] Snippets with placeholders
-- [BIG] Selection on mouse dragging
++ [BIG] Selection on mouse dragging
 - [BIG] Change history and Undo/Redo
   - Persist cursor movements
   - Group similar actions (option)
@@ -313,3 +312,4 @@
 + Поправить выделение слов кликом
 + Одиночный клик по гаттеру
 + Indent/unindent блока
++ Сделать smart indent
