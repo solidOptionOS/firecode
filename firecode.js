@@ -483,14 +483,17 @@
 
         pingCursor: function()
         {
-            // this._cursor.style.visibility = 'visible';
-            this._cursor.style.opacity = '1';
-
             var self = this, blink = function(e)
             {
                 var hidden = self._cursor.style.opacity == '0';
                 self._cursor.style.opacity = hidden ? '1' : '0';
             };
+
+            this._cursor.className = null;
+            this._cursor.style.opacity = '1';
+            window.setTimeout(function() {
+                self._cursor.className = 'animated';
+            }, 200 /* should match animation speed */);
 
             if (this._blinkInterval)
                 clearInterval(this._blinkInterval);

@@ -24,7 +24,7 @@
 .firecode:focus .marker div {}
 .firecode:focus .cursor div {background: #000000;}
 
-.firecode .cursor pre
+.firecode .cursor pre.animated
 {
     -webkit-transition: opacity 200ms ease;
     -moz-transition: opacity 200ms ease;
