@@ -1651,7 +1651,7 @@
                         line--;
                         position = this.getLineLength(line);
                     }
-                    else
+                    else if (position > 0)
                         position--;
                 }
 
