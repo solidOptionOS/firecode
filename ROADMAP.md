@@ -9,7 +9,7 @@
     - Expand editor height or scroll (min/max)
     - Horizontal scrolbar overlap gutter or not
     - Show or hide gutter + runtime switch
-    - Scrollbar hehavior: show / hide / auto
+    - Scrollbar behavior: show / hide / auto
     - Number of prerendered hidden lines
     - Whether to allow scroll down to space
     - Smooth or per-line scrolling
@@ -23,6 +23,7 @@
   - getAnchorNode()
   - getSelection()
   - getCursorPosition()
+- [BIG] Copy/Paste + Multiline
 - [BIG] Change history and Undo/Redo
   - Persist cursor movements
   - Group similar actions (option)
