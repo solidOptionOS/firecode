@@ -14,7 +14,14 @@
     FireCode.LINE = 'LINE';
     FireCode.WORD = 'WORD';
     FireCode.CHAR = 'CHAR';
-
+    
+    // Sniff user-agent
+    if (navigator && navigator.userAgent) {
+        FireCode.isMac = !!~navigator.userAgent.indexOf('Mac');
+        FireCode.isIpad = !!~navigator.userAgent.indexOf('iPad');
+        FireCode.isMSIE = !!~navigator.userAgent.indexOf('MSIE');
+    }
+    
     // Attaches FireCode instance to an element
     FireCode.attach = function(id)
     {
@@ -855,6 +862,9 @@
 
             // Get last selection range
             var range = this.getSelectionRange();
+            
+            // Control/command key
+            var ctrlKey = FireCode.isMac ? e.metaKey : e.ctrlKey;
 
             // Handle mousedown
             if (e.type === 'mousedown')
@@ -887,7 +897,7 @@
 
                     // Click on gutter
                     if (e.target.parentNode === this._gutter)
-                        this.addSelectionRange(point.line, 0, point.line, 0, !e.ctrlKey);
+                        this.addSelectionRange(point.line, 0, point.line, 0, !ctrlKey);
 
                     // Shift-click selection from cursor to new click position
                     else if (e.shiftKey)
@@ -895,7 +905,7 @@
 
                     // Reset selection if no control is held
                     else
-                        this.addSelectionRange(point.line, point.position, point.line, point.position, !e.ctrlKey);
+                        this.addSelectionRange(point.line, point.position, point.line, point.position, !ctrlKey);
                 }
 
                 // Double-click select word
@@ -905,7 +915,7 @@
                     if (e.target.parentNode === this._gutter)
                     {
                         this._lineRange = this.createLineSelectionRange(point.line);
-                        this.addSelectionRange(this._lineRange, !e.ctrlKey);
+                        this.addSelectionRange(this._lineRange, !ctrlKey);
                     }
 
                     // Select word on double click
@@ -915,7 +925,7 @@
                         this._doubleClick = null;
 
                         this._wordRange = this.createWordSelectionRange(point.line, point.position);
-                        this.addSelectionRange(this._wordRange, !e.ctrlKey);
+                        this.addSelectionRange(this._wordRange, !ctrlKey);
                     }
                 }
 
@@ -925,7 +935,7 @@
                     this._tripleClick = null;
 
                     this._lineRange = this.createLineSelectionRange(point.line);
-                    this.addSelectionRange(this._lineRange, !e.ctrlKey);
+                    this.addSelectionRange(this._lineRange, !ctrlKey);
                 }
 
                 this.normalizeSelection();
@@ -968,7 +978,7 @@
                         range.startPosition = point.position;
                         range.fixedPosition = point.position;
 
-                        if (e.ctrlKey)
+                        if (ctrlKey)
                         {
                             this._selection = this._dragSelection.slice(0);
                             this._selection.push(range);
@@ -999,6 +1009,9 @@
             var ranges = this.getSelectionRanges(),
                 key = this.getPressedKey(e),
                 handled = true;
+                
+            // Control/command key
+            var ctrlKey = FireCode.isMac ? e.metaKey : e.ctrlKey;
 
             // Whether all ranges are collapsed
             var collapsed = true;
@@ -1011,7 +1024,7 @@
                 var range = ranges[i];
 
                 // Printing characters
-                if (key.length === 1 && !e.ctrlKey && e.type === 'keypress')
+                if (key.length === 1 && !ctrlKey && e.type === 'keypress')
                 {
                     if (!collapsed)
                         this.removeTextAt(range);
@@ -1029,7 +1042,7 @@
 
                 else if (key === '[delete]')
                 {
-                    if (e.ctrlKey)
+                    if (ctrlKey)
                         this.moveCursorBy(range, FireCode.WORD, +1, true);
                     else if (collapsed)
                         this.moveCursorBy(range, FireCode.CHAR, +1, true);
@@ -1039,7 +1052,7 @@
 
                 else if (key === '[backspace]')
                 {
-                    if (e.ctrlKey)
+                    if (ctrlKey)
                         this.moveCursorBy(range, FireCode.WORD, -1, true);
                     else if (collapsed)
                         this.moveCursorBy(range, FireCode.CHAR, -1, true);
@@ -1053,16 +1066,16 @@
                 else if (key === '[tab]')
                     this.insertTextAt(range, Array(this._tabSize + 1).join(' '));
 
-                else if (key === 'A' && e.ctrlKey)
+                else if (key === 'A' && ctrlKey)
                     this.selectAll();
 
-                else if (key === 'D' && e.ctrlKey)
+                else if (key === 'D' && ctrlKey)
                     this.duplicateLine(range);
 
-                else if (key === '[left]' && e.ctrlKey)
+                else if (key === '[left]' && ctrlKey)
                     this.moveCursorBy(range, FireCode.WORD, -1, e.shiftKey);
 
-                else if (key === '[right]' && e.ctrlKey)
+                else if (key === '[right]' && ctrlKey)
                     this.moveCursorBy(range, FireCode.WORD, +1, e.shiftKey);
 
                 else if (key === '[left]')
@@ -1071,10 +1084,10 @@
                 else if (key === '[right]')
                     this.moveCursorBy(range, FireCode.CHAR, +1, e.shiftKey);
 
-                else if (key === '[up]' && e.ctrlKey)
+                else if (key === '[up]' && ctrlKey)
                     this.scrollFrameBy(-1);
 
-                else if (key === '[down]' && e.ctrlKey)
+                else if (key === '[down]' && ctrlKey)
                     this.scrollFrameBy(+1);
 
                 else if (key === '[up]')
