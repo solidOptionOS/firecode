@@ -1,4 +1,4 @@
-;(function(window, document, undefined)
+;(function(window, document)
 {
     // Define FireCode namespace
     var FireCode = window.FireCode = {};
@@ -48,7 +48,7 @@
         if ((textAreaNode = document.getElementById(id)) &&
             (fireCodeNode = textAreaNode['data-firecode']))
         {
-            textAreaNode.style.visibility = null; // Restore
+            textAreaNode.style.visibility = ''; // Restore
             fireCodeNode.parentNode.removeChild(fireCodeNode);
         }
     };
@@ -71,9 +71,12 @@
         }
         else
         {
+            /**
+             * @constructor
+             */
             var F = function() {};
             F.prototype = this.prototype;
-            newClass.prototype = new F;
+            newClass.prototype = new F();
         }
 
         newClass.extend = FireCode.Class.extend;
@@ -607,7 +610,9 @@
                         'c-' + range.id,
                         this._cursor,
                         this._charWidth * range.startPosition,
-                        this._charHeight * (range.startLine - frame.topLine)
+                        this._charHeight * (range.startLine - frame.topLine),
+                        undefined,
+                        undefined
                     );
 
                     // Highlight lines with cursor
@@ -620,7 +625,9 @@
                             'b-' + range.id,
                             this._backer,
                             0,
-                            this._charHeight * (range.startLine - frame.topLine)
+                            this._charHeight * (range.startLine - frame.topLine),
+                            undefined,
+                            undefined
                         );
                     }
                 }
@@ -634,7 +641,8 @@
                         this._marker,
                         this._charWidth * Math.min(range.startPosition, range.endPosition),
                         this._charHeight * (range.startLine - frame.topLine),
-                        this._charWidth * Math.abs(range.startPosition - range.endPosition)
+                        this._charWidth * Math.abs(range.startPosition - range.endPosition),
+                        undefined
                     );
                 }
 
