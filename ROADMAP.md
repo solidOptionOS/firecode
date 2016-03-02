@@ -1,7 +1,13 @@
 
-- Fix keyboard shortcuts on Mac
-- Fix code to prevent GCC warnings
-- Cmd + left/right start/end of line
++ Fix keyboard shortcuts on Mac
++ Fix code to prevent GCC warnings
+
+- Fix auto-scrolling when adding new lines
+- Align bottom auto-scrolling of last line (see updateScroll)
+- Show one more line in the viewport
+- Cover bottom-right corner between scrollbars
+- Scrollbars should not overlap on OSX
+- Update keystroke map to work on Windows/OSX
 
 - Options
   - Cursor blinking interval
@@ -72,11 +78,6 @@
 - Single file for the whole editor (using Gulp)
 - Support multiple simultaneous editors
 
-+ Switch between line home / content start with Home
-- Select line with double click on gutter
-- Select token with double click
-- Multiple cursors
-
 - Context menu
 - Modal windows
 - Status line
@@ -84,10 +85,6 @@
 - Project tree
 
 - loadCode, saveCode() - ctrl + S
-- Implement Cut/Copy/Paste
-- Запечатать CSS в JS-файл
-- Minify and compress with GCC
-- Fix GCC errors and warnings
 - Complete test coverage, QUnit
 - Embed firecode.css into firecode.js
 - Cursor duplication: ctrl + alt + up/down
